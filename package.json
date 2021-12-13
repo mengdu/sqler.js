@@ -1,0 +1,26 @@
+{
+  "name": "sqler.js",
+  "version": "0.1.0",
+  "description": "A SQL builder for javascript",
+  "main": "dest/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mengdu/sqler.js.git"
+  },
+  "keywords": [
+    "SQL",
+    "builder"
+  ],
+  "files": ["dest"],
+  "author": "lanyueos@qq.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mengdu/sqler.js/issues"
+  },
+  "homepage": "https://github.com/mengdu/sqler.js#readme"
+}
