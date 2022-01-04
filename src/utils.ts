@@ -102,6 +102,24 @@ export class Condition {
   }
 }
 
+export class Where extends Condition {
+  constructor () {
+    super('where')
+  }
+}
+
+export class Having extends Condition {
+  constructor () {
+    super('having')
+  }
+}
+
+export class On extends Condition {
+  constructor () {
+    super('on')
+  }
+}
+
 export class Order {
   private block: Block
   constructor () {

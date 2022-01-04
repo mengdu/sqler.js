@@ -1,47 +1,10 @@
-const sqlstring = require('sqlstring')
 const Sqler = require('../dest')
 
-const q = new Sqler.default()
+const w = new Sqler.Where()
 
-q.select('select id, username')
-q.from('users')
-q.where(where => {
-  where.and('field1 = ?', 1)
-  where.and('field2 = ?', 2)
-  where.or(or => {
-    or.add("field3 = ?", 3)
-    or.add("field4 = ?", 4)
-    or.and(and => {
-      and.and('field5 = ?', 5)
-      and.and('field6 = ?', 6)
-      and.or(or => {
-        or.add("field7 = ?", 7)
-        or.add("field8 = ?", 8)
-      })
-    })
-  })
-})
-q.group(group => {
-  group.add('field1')
-  group.add('field2')
-  group.add('field3')
-})
-q.having(having => {
-  having.and('field1 > 1')
-})
-q.order(o => {
-  o.add('id', 'desc')
-  o.add('age', 'asc')
-})
-q.limit(0, 10)
-console.log(q.do())
-console.log(q.doCount())
-
-const b = new Sqler.Condition("where")
-
-b.and("field1 = ?", 1)
-b.and("field2 = ?", 2)
-b.or(or => {
+w.and("field1 = ?", 1)
+w.and("field2 = ?", 2)
+w.or(or => {
   or.add("field3 = ?", 3)
   or.add("field4 = ?", 4)
   or.and(and => {
@@ -53,15 +16,29 @@ b.or(or => {
     })
   })
 })
-console.log(b.do(true))
-console.log(sqlstring.format('like ?', []))
+
+// {
+//   sql: 'where field1 = 1 and field2 = 2 and (field3 = 3 or field4 = 4 or (field5 = 5 and field6 = 6 and (field7 = 7 or field8 = 8)))',
+//   args: []
+// }
+console.log(w.do())
+
+// {
+//   sql: 'where field1 = ? and field2 = ? and (field3 = ? or field4 = ? or (field5 = ? and field6 = ? and (field7 = ? or field8 = ?)))',
+//   args: [ 1, 2, 3, 4, 5, 6, 7, 8]
+// }
+console.log(w.do(false))
 
 const o = new Sqler.Order()
 o.add('field1', 'asc')
 o.add('field2', 'desc')
+
+// order by field1 asc, field2 desc
 console.log(o.do())
 
 const g = new Sqler.Group()
 g.add('field1')
 g.add('field2', 'field3')
+
+// group by field1, field2, field3
 console.log(g.do())

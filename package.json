@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "sqlstring": "^2.3.2"
   },
   "devDependencies": {
-    "@types/sqlstring": "^2.3.0"
+    "@types/sqlstring": "^2.3.0",
+    "jest": "^27.4.5"
   }
 }
