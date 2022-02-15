@@ -1,6 +1,6 @@
 {
   "name": "sqler.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A SQL builder for javascript",
   "main": "dest/index.js",
   "scripts": {
