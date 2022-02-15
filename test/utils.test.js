@@ -7,12 +7,16 @@ test('utils.Block', function () {
 
   o.add('field1 = ?', 1)
   o.add('field2 = ?', 2)
+  o.add(() => 'field3 = 3')
+  o.add(() => {
+    return { sql: 'field4 = ?', args: [4] }
+  })
 
   const { sql: sql1, args } = o.do()
-  expect(sql1).toBe('field1 = ? field2 = ?')
-  expect(args).toEqual([1, 2])
+  expect(sql1).toBe('field1 = ? field2 = ? field3 = 3 field4 = ?')
+  expect(args).toEqual([1, 2, 4])
   const { sql: sql2 } = o.do(', ')
-  expect(sql2).toBe('field1 = ?, field2 = ?')
+  expect(sql2).toBe('field1 = ?, field2 = ?, field3 = 3, field4 = ?')
 })
 
 test("utils.Condition", function () {

@@ -14,11 +14,26 @@ export class Block {
     this.args = []
   }
 
-  add (sql: string, ...args: any[]) {
-    sql = sql.trim()
-    if (sql === "") return
-    this.sqls.push(sql)
-    this.args.push(...args)
+  add (sql: () => (string | { sql: string, args?: any[] })): Block;
+  add (sql: string, ...args: any[]): Block;
+  add (sql: ((() => any) | string), ...args: any[]): Block {
+    if (typeof sql === 'function') {
+      const res = sql()
+      if (typeof res === 'string' && res) {
+        this.sqls.push(res)
+      } else if (typeof res === 'object' && res.sql) {
+        this.sqls.push(res.sql)
+        this.args.push(...res.args)
+      }
+    } else {
+      sql = sql.trim()
+      if (sql) {
+        this.sqls.push(sql)
+        this.args.push(...args)
+      }
+    }
+
+    return this
   }
 
   set (sql: string, ...args: any[]) {
